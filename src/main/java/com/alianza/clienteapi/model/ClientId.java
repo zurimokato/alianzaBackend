@@ -6,6 +6,9 @@ import jakarta.persistence.GenerationType;
 import lombok.Getter;
 import lombok.Setter;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 import java.io.Serializable;
 
 @Embeddable
@@ -13,8 +16,13 @@ import java.io.Serializable;
 @Setter
 public class ClientId implements Serializable {
 
-    private String sharedKey;
+
+    @NotBlank(message = "El UserName es obligatorio")
+    @NotNull
+    private String userName;
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long businessId;
+    @NotNull
+    @NotBlank(message = "El documento es obligatorio")
+    private String document;
 }

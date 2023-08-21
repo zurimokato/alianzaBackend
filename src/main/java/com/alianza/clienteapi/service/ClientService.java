@@ -1,10 +1,24 @@
 package com.alianza.clienteapi.service;
 
-import com.alianza.clienteapi.dto.ClientDTO;
-import com.alianza.clienteapi.json.PageClient;
+import com.alianza.clienteapi.json.AdvancedSearch;
+import com.alianza.clienteapi.json.ClientRequest;
+import com.alianza.clienteapi.model.ClientModel;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+import java.util.Optional;
 
 public interface ClientService {
 
-    Page<ClientDTO>getlientes();
+    Page<ClientModel> getClients(Pageable pageable);
+
+    ClientModel createClient(ClientRequest json);
+
+    Optional<ClientModel> getClientDocumento(String document);
+
+    ClientModel updateClient(String id, ClientRequest client);
+
+    Boolean deleteClient(String document);
+
+    Page<ClientModel> advancedSearch(AdvancedSearch advancedSearch,Pageable pageable);
 }
