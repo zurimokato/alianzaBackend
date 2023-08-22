@@ -20,6 +20,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class ClientServiceImpl implements ClientService {
     private final ClientDAO clientDAO;
+
     @Override
     public Page<ClientModel> getClients(Pageable pageable) {
         return clientDAO.findAll(pageable);
@@ -27,7 +28,7 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public ClientModel createClient(ClientRequest json) {
-        ClientModel client=new ClientModel();
+        ClientModel client = new ClientModel();
         client.setName(json.getName());
         client.setPhone(json.getPhone());
         client.setEmail(json.getEmail());
@@ -46,20 +47,23 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public ClientModel updateClient(String id, ClientRequest client) {
 
-        ClientModel clientToUpdate=clientDAO.getClientModelByClientId_Document(id).orElse(null);
-        if (clientToUpdate  ==null) {
+        ClientModel clientToUpdate = clientDAO.getClientModelByClientId_Document(id).orElse(null);
+        if (clientToUpdate == null) {
             return null;
         }
-        clientToUpdate.setName(client.getName());
-        clientToUpdate.setPhone(client.getPhone());
-        clientToUpdate.setEmail(client.getEmail());
+        if (!client.getName().isEmpty())
+            clientToUpdate.setName(client.getName());
+        if (!client.getPhone().isEmpty())
+            clientToUpdate.setPhone(client.getPhone());
+        if (!client.getEmail().isEmpty())
+            clientToUpdate.setEmail(client.getEmail());
         return clientDAO.save(clientToUpdate);
     }
 
     @Override
     public Boolean deleteClient(String document) {
-        ClientModel clientToDelete=clientDAO.getClientModelByClientId_Document(document).orElse(null);
-        if (clientToDelete  ==null) {
+        ClientModel clientToDelete = clientDAO.getClientModelByClientId_Document(document).orElse(null);
+        if (clientToDelete == null) {
             return false;
         }
         clientDAO.delete(clientToDelete);
