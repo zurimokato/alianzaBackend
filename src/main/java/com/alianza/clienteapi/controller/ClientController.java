@@ -1,6 +1,6 @@
 package com.alianza.clienteapi.controller;
 
-import com.alianza.clienteapi.json.AdvancedSearch;
+import com.alianza.clienteapi.json.ClientSearchCriteria;
 import com.alianza.clienteapi.json.ClientRequest;
 import com.alianza.clienteapi.model.ClientModel;
 import com.alianza.clienteapi.service.ClientService;
@@ -64,7 +64,7 @@ public class ClientController {
     }
 
     @GetMapping("/advanceSearch")
-    public ResponseEntity<Page<ClientModel>> searchProducts(AdvancedSearch criteria,@RequestParam(defaultValue = "0") int page,
+    public ResponseEntity<Page<ClientModel>> searchProducts(ClientSearchCriteria criteria, @RequestParam(defaultValue = "0") int page,
                                                             @RequestParam(defaultValue = "10") int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<ClientModel> clientModels = clientService.advancedSearch(criteria, pageable);

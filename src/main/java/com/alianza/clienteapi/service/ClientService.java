@@ -1,6 +1,6 @@
 package com.alianza.clienteapi.service;
 
-import com.alianza.clienteapi.json.AdvancedSearch;
+import com.alianza.clienteapi.json.ClientSearchCriteria;
 import com.alianza.clienteapi.json.ClientRequest;
 import com.alianza.clienteapi.model.ClientModel;
 import org.springframework.data.domain.Page;
@@ -20,5 +20,5 @@ public interface ClientService {
 
     Boolean deleteClient(String document);
 
-    Page<ClientModel> advancedSearch(AdvancedSearch advancedSearch,Pageable pageable);
+    Page<ClientModel> advancedSearch(ClientSearchCriteria clientSearchCriteria, Pageable pageable);
 }

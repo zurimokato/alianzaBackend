@@ -1,7 +1,7 @@
 package com.alianza.clienteapi.service.imp;
 
 import com.alianza.clienteapi.dao.ClientDAO;
-import com.alianza.clienteapi.json.AdvancedSearch;
+import com.alianza.clienteapi.json.ClientSearchCriteria;
 import com.alianza.clienteapi.json.ClientRequest;
 import com.alianza.clienteapi.model.ClientId;
 import com.alianza.clienteapi.model.ClientModel;
@@ -67,7 +67,7 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Page<ClientModel> advancedSearch(AdvancedSearch advancedSearch, Pageable pageable) {
-        return clientDAO.searchClientModels(advancedSearch,pageable);
+    public Page<ClientModel> advancedSearch(ClientSearchCriteria clientSearchCriteria, Pageable pageable) {
+        return clientDAO.findByEmailContainingAndNameContainingAndPhoneContaining(clientSearchCriteria.getEmail(), clientSearchCriteria.getName(), clientSearchCriteria.getPhone(), pageable);
     }
 }

@@ -6,10 +6,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AdvancedSearch {
+public class ClientSearchCriteria {
     private String name;
-    private String userName;
     private String email;
     private String phone;
-    private String document;
 }

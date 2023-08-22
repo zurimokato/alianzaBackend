@@ -1,6 +1,6 @@
 package com.alianza.clienteapi.dao;
 
-import com.alianza.clienteapi.json.AdvancedSearch;
+import com.alianza.clienteapi.json.ClientSearchCriteria;
 import com.alianza.clienteapi.model.ClientId;
 import com.alianza.clienteapi.model.ClientModel;
 import org.springframework.data.domain.Page;
@@ -15,5 +15,5 @@ import java.util.Optional;
 public interface ClientDAO extends JpaRepository<ClientModel, ClientId> {
     Optional<ClientModel>getClientModelByClientId_Document(String document);
 
-    Page<ClientModel> searchClientModels(AdvancedSearch criteria, Pageable pageable);
+    Page<ClientModel>findByEmailContainingAndNameContainingAndPhoneContaining(String email, String name, String phone, Pageable pageable);
 }

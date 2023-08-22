@@ -6,7 +6,7 @@ import jakarta.persistence.GenerationType;
 import lombok.Getter;
 import lombok.Setter;
 
-import jakarta.validation.constraints.NotBlank;
+
 import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
@@ -17,12 +17,10 @@ import java.io.Serializable;
 public class ClientId implements Serializable {
 
 
-    @NotBlank(message = "El UserName es obligatorio")
     @NotNull
     private String userName;
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
-    @NotBlank(message = "El documento es obligatorio")
     private String document;
 }
