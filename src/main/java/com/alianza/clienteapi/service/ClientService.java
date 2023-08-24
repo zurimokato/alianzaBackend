@@ -21,4 +21,8 @@ public interface ClientService {
     Boolean deleteClient(String document);
 
     Page<ClientModel> advancedSearch(ClientSearchCriteria clientSearchCriteria, Pageable pageable);
+
+    Boolean  checkUsernameOrDocument(ClientRequest clientRequest);
+
+    Boolean  checkEmail(ClientRequest clientRequest);
 }

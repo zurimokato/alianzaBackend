@@ -14,11 +14,14 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/clients")
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class ClientController {
     private final ClientService clientService;
 
@@ -54,9 +57,9 @@ public class ClientController {
     }
 
     @DeleteMapping("/{document}")
-    public ResponseEntity<Void>deleteClient(@PathVariable String document){
-        Boolean deleted=clientService.deleteClient(document);
-        if(!deleted){
+    public ResponseEntity<Void> deleteClient(@PathVariable String document) {
+        Boolean deleted = clientService.deleteClient(document);
+        if (!deleted) {
             return ResponseEntity.notFound().build();
         }
 
@@ -64,11 +67,25 @@ public class ClientController {
     }
 
     @GetMapping("/advanceSearch")
-    public ResponseEntity<Page<ClientModel>> searchProducts(ClientSearchCriteria criteria, @RequestParam(defaultValue = "0") int page,
+    public ResponseEntity<Page<ClientModel>> searchProducts(@RequestBody ClientSearchCriteria criteria, @RequestParam(defaultValue = "0") int page,
                                                             @RequestParam(defaultValue = "10") int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<ClientModel> clientModels = clientService.advancedSearch(criteria, pageable);
         return ResponseEntity.ok(clientModels);
+    }
+
+    @PostMapping("checkUsuario")
+    public ResponseEntity<Map<String, Boolean>> checkUser(@RequestBody ClientRequest clientRequest) {
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("result", clientService.checkUsernameOrDocument(clientRequest));
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("checkEmail")
+    public ResponseEntity<Map<String, Boolean>> checkEmail(@RequestBody ClientRequest clientRequest) {
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("result", clientService.checkEmail(clientRequest));
+        return ResponseEntity.ok(response);
     }
 
 

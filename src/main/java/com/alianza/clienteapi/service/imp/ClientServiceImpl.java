@@ -74,4 +74,16 @@ public class ClientServiceImpl implements ClientService {
     public Page<ClientModel> advancedSearch(ClientSearchCriteria clientSearchCriteria, Pageable pageable) {
         return clientDAO.findByEmailContainingAndNameContainingAndPhoneContaining(clientSearchCriteria.getEmail(), clientSearchCriteria.getName(), clientSearchCriteria.getPhone(), pageable);
     }
+
+    @Override
+    public Boolean checkUsernameOrDocument(ClientRequest clientRequest) {
+        Boolean responseUserName = clientDAO.existsClientModelByClientId_UserName(clientRequest.getUserName());
+        Boolean responseDocument = clientDAO.existsClientModelByClientId_Document(clientRequest.getDocument());
+        return responseDocument || responseUserName;
+    }
+
+    @Override
+    public Boolean checkEmail(ClientRequest clientRequest) {
+        return clientDAO.existsClientModelByEmail(clientRequest.getEmail());
+    }
 }
